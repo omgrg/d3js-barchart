@@ -12,6 +12,18 @@ let svg = d3.select('#bar-chart')
     .append('g')
     .attr("transform","translate("+margin.left+","+ margin.top+")");
 
+svg.append('text')
+    .attr('y',height + 50)
+    .attr('x',width/2)
+    .attr('text-anchor',"middle")
+    .text("Month");
+
+svg.append('text')
+    .attr('y', -60)
+    .attr('x', -(height/2))
+    .attr('transform',"rotate(-90)")
+    .text("Revenue");
+
 
 d3.json('data/revenues.json').then(function (data) {
 
@@ -19,6 +31,10 @@ d3.json('data/revenues.json').then(function (data) {
     data.forEach(function (d) {
         d.revenue = +d.revenue;
     });
+
+    d3.interval(function(){
+       update(data);
+    },1000);
 
     let xScale = d3.scaleBand()
         .domain(data.map(function (d) {
@@ -62,3 +78,7 @@ d3.json('data/revenues.json').then(function (data) {
         })
         .attr('fill', 'grey');
 });
+
+function update(data){
+
+};
